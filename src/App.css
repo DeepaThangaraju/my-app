@@ -1,0 +1,43 @@
+.App {
+  text-align: center;
+  display: grid;
+  grid-template-columns: auto;
+  gap:2rem;
+  color:white;
+  font-family: 'Lemonada', cursive;
+}
+.movies{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  background-color: rgb(236, 70, 186);
+}
+
+.movie-pic{
+  width:15rem;
+  height:15rem;
+  object-fit: cover;
+}
+.movies textarea{
+  border:0px;
+  width:19.5rem;
+  height:10rem;
+  text-align: left;
+  margin: 0rem;
+  font-family: 'Lemonada', cursive;
+}
+p{
+  text-align: left;
+}
+@media (min-width:660px){
+  .App{
+    grid-template-columns: auto auto;
+    gap:0.5rem;
+  }
+}
+
+@media (min-width:995px){
+  .App{
+    grid-template-columns: auto auto auto;
+    gap:1.1rem;
+  }
+}
+
