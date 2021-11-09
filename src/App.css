@@ -47,6 +47,12 @@ p{
   width:4rem;
   font-size: 1rem;
 }
+.Addbutton{
+  display: block;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
 
 @media (min-width:660px){
   .Movie{

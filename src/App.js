@@ -1,6 +1,7 @@
 // import from './logo.svg';
-import { useState } from 'react';
+// import { useState } from 'react/cjs/react.development';
 import './App.css';
+import { MovieList } from './MovieList';
 
 export default function App() {
   const movieList=[{
@@ -45,76 +46,40 @@ export default function App() {
     <div className="App" >
       
        <MovieList movies={movieList}/> 
-       
+       {/* <AddColor /> */}
      
     </div>
     //map converting array into object
   );
   
 }
-function Counter(){
-  const [like,setLike] = useState(0);
-  const [dislike,setDislike]=useState(0);
-  return(
-    <div className="counter">
-      <button  className="likes-dislikes"
-      onClick={() => {
-        setLike(like+1);
-      }
-      }
-      >👍{like}</button>
-      <button className="likes-dislikes"
-      onClick={() => {
-        setDislike(dislike+1);
-      }
-      }
-      >👎{dislike}</button>
-      
-    </div>
-  );
-}
-function MovieList({movies})
-{
+
+
+
+// function AddColor(){
+//   const [color , setColor]=useState("red");
+//   const sty={backgroundColor:color}
+//   const [colors,setColors]=useState(["red","crimson","pink"]);
+//   return (
+//     <div>
+//       <input 
+//       value={color}
+//       onChange={(event)=>setColor(event.target.value)}
+//       style={sty}
+//       placeholder="enter the color"/>
+//       {colors.map((clr,index)=>(<Colorbox key={index} color={clr}/>))}
+
+//       <button onClick={()=>setColors([...colors,color])}>Add colors</button>
+//     </div>
+//   )
+// }
   
-  return(
-  <section className="Movie">
-  {movies.map(({movieName,poster,rating,description})=>  <Msg 
-    names={movieName} 
-    image={poster} 
-    rate={rating} 
-    des={description} />) }
-</section>);
-}
-
-function Msg({names,image,rate,des}){  
-       //unwrapping the name and pc from object
-       const [show,setShow]=useState(true);
-     const sty={ color :rate > 8 ? "green" : "red",fontWeight:"bold"};
-     const disdes={display: show ? "block" : "none"}
-  return (<div className="movies">
+// function Colorbox({color}){
+//   const styles={backgroundColor:color,height:"4rem",width:"10rem",margin:"1rem"};
+//   return (
     
-     
-    <img className="movie-pic" src={image} alt={names} />
-    <h1 className="movie-name">{names}</h1>
-    <p>Rating:<span style={sty}>{rate}</span> </p>
-    <button onClick={()=>{setShow(!show)}}>hide description</button>
-    <p style={disdes}>Description:</p><textarea style={disdes}>{des}</textarea>
-    <Counter />
-    </div>
-    
-  );
-  
-}
+//     <div style={styles}>
 
-
-// function SetColor(){
-//   const [color,setColor]=useState("red");
-//   const styles={backgroundColor:color};
-//   return (<div>
-//     <input 
-//     value={color}
-//     onChange={(event)=>setColor(event.target.value)}
-//     style={styles}
-//     placeholder="enter the color"/>
-//   </div>);
+//     </div>
+//   )
 // }
