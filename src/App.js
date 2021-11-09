@@ -42,7 +42,7 @@ export default function App() {
     poster: "https://picfiles.alphacoders.com/107/thumb-107066.jpg"
   },
   ]
-  const [name, setName] = useState(" ");
+  const [name, setName] = useState("");
   const [posture, setPosture] = useState(" ");
   const [rate, setRate] = useState(" ");
   const [summary, setSummary] = useState(" ");
@@ -62,9 +62,10 @@ export default function App() {
     <div className="App" >
       <div>
         <input
-          placeholder="movie name"
+
           value={name}
           onChange={(event) => setName(event.target.value)}
+          placeholder="movie name"
         />
 
         <input
@@ -78,11 +79,10 @@ export default function App() {
           placeholder="rating" />
 
         <input
-          placeholder="movie summary"
           value={summary}
           onChange={(event) => setSummary(event.target.value)}
-        />
-
+          placeholder="Movie summary" />
+        <input />
 
         <button onClick={addmovie}>ADD</button>
       </div>
