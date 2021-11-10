@@ -82,7 +82,7 @@ export default function App() {
           value={summary}
           onChange={(event) => setSummary(event.target.value)}
           placeholder="Movie summary" />
-        <input />
+
 
         <button onClick={addmovie}>ADD</button>
       </div>
