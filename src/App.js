@@ -63,23 +63,22 @@ export default function App() {
       <div>
         <input
 
-          value={name}
+          // value={name}
           onChange={(event) => setName(event.target.value)}
-          placeholder="movie name"
-        />
+          placeholder="movie name" />
 
         <input
-          value={posture}
+          // value={posture}
           onChange={(event) => setPosture(event.target.value)}
           placeholder="poster link" />
 
         <input
-          value={rate}
+          // value={rate}
           onChange={(event) => setRate(event.target.value)}
           placeholder="rating" />
 
         <input
-          value={summary}
+
           onChange={(event) => setSummary(event.target.value)}
           placeholder="Movie summary" />
 
