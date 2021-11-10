@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import './App.css';
 import { MovieList } from './MovieList';
+import { Link, Route } from "react-router-dom"
 
 export default function App() {
   const intialmovie = [{
@@ -42,11 +43,42 @@ export default function App() {
     poster: "https://picfiles.alphacoders.com/107/thumb-107066.jpg"
   },
   ]
+  const [movieList, setMovieList] = useState(intialmovie);
+  return (
+
+    <div className="App" >
+      <ul>
+        <li><Link to="/AddForm">Add Movie</Link></li>
+        <li> <Link to="/MovieList">Movie List</Link></li>
+        <li><Link to="/colorBox">Color Box</Link></li>
+      </ul>
+
+
+      <switch>
+        <Route path="/AddForm">
+          <AddForm movies={movieList} setMovieList={setMovieList} />
+          <MovieList movies={movieList} />
+        </Route>
+        <Route path="/MovieList">
+          <MovieList movies={movieList} />
+        </Route>
+        <Route path="/colorBox">
+          <AddColor />
+        </Route>
+      </switch>
+
+    </div>
+    //map converting array into object
+  );
+
+}
+
+function AddForm({ movieList }, { setMovieList }) {
   const [name, setName] = useState("");
   const [posture, setPosture] = useState(" ");
   const [rate, setRate] = useState(" ");
   const [summary, setSummary] = useState(" ");
-  const [movieList, setMovieList] = useState(intialmovie);
+
   const addmovie = () => {
     console.log("adding", name, posture, rate, summary);
     const newmovie = {
@@ -55,71 +87,62 @@ export default function App() {
       description: summary,
       poster: posture
     };
-    setMovieList([...intialmovie, newmovie]);
+    setMovieList([...movieList, newmovie]);
   }
   return (
+    <div className="form1">
+      <input
 
-    <div className="App" >
-      <div>
-        <input
+        // value={name}
+        onChange={(event) => setName(event.target.value)}
+        placeholder="movie name" /><br />
 
-          // value={name}
-          onChange={(event) => setName(event.target.value)}
-          placeholder="movie name" />
+      <input
+        // value={posture}
+        onChange={(event) => setPosture(event.target.value)}
+        placeholder="poster link" /><br />
 
-        <input
-          // value={posture}
-          onChange={(event) => setPosture(event.target.value)}
-          placeholder="poster link" />
+      <input
+        // value={rate}
+        onChange={(event) => setRate(event.target.value)}
+        placeholder="rating" /><br />
 
-        <input
-          // value={rate}
-          onChange={(event) => setRate(event.target.value)}
-          placeholder="rating" />
+      <input
 
-        <input
-
-          onChange={(event) => setSummary(event.target.value)}
-          placeholder="Movie summary" />
+        onChange={(event) => setSummary(event.target.value)}
+        placeholder="Movie summary" /><br />
 
 
-        <button onClick={addmovie}>ADD</button>
-      </div>
-      <MovieList movies={movieList} />
-      {/* <AddColor /> */}
-
-    </div>
-    //map converting array into object
-  );
-
+      <button onClick={addmovie}>ADD</button>
+    </div>);
 }
 
 
 
-// function AddColor(){
-//   const [color , setColor]=useState("red");
-//   const sty={backgroundColor:color}
-//   const [colors,setColors]=useState(["red","crimson","pink"]);
-//   return (
-//     <div>
-//       <input 
-//       value={color}
-//       onChange={(event)=>setColor(event.target.value)}
-//       style={sty}
-//       placeholder="enter the color"/>
-//       {colors.map((clr,index)=>(<Colorbox key={index} color={clr}/>))}
+function AddColor() {
+  const [color, setColor] = useState("red");
+  const sty = { backgroundColor: color }
+  const [colors, setColors] = useState(["red", "crimson", "pink"]);
+  return (
+    <div>
+      <input
+        value={color}
+        onChange={(event) => setColor(event.target.value)}
+        style={sty}
+        placeholder="enter the color" />
+      {colors.map((clr, index) => (<Colorbox key={index} color={clr} />))}
 
-//       <button onClick={()=>setColors([...colors,color])}>Add colors</button>
-//     </div>
-//   )
-// }
+      <button onClick={() => setColors([...colors, color])}>Add colors</button>
+    </div>
+  )
+}
 
-// function Colorbox({color}){
-//   const styles={backgroundColor:color,height:"4rem",width:"10rem",margin:"1rem"};
-//   return (
+function Colorbox({ color }) {
+  const styles = { backgroundColor: color, height: "4rem", width: "10rem", margin: "1rem" };
+  return (
 
-//     <div style={styles}>
+    <div style={styles}>
 
-//     </div>
-//   )
-// }
+    </div>
+  )
+}

@@ -53,6 +53,24 @@ p{
   justify-content: center;
   align-items: center;
 }
+.form1{
+  display: block;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: cadetblue;
+}
+.form1 button{
+  width: 5rem;
+  height:2rem;
+  background-color: lightblue;
+  border-radius: 5px;
+}
+.form1 input{
+  width:20rem;
+  height: 2rem;
+  margin:1rem;
+}
 
 @media (min-width:660px){
   .Movie{
