@@ -1,6 +1,6 @@
 // import from './logo.svg';
-// import { useState } from 'react/cjs/react.development';
-import { useState } from 'react/cjs/react.development';
+// import { useState } from 'react';
+
 import './App.css';
 import { MovieList } from './MovieList';
 
@@ -42,51 +42,51 @@ export default function App() {
     poster: "https://picfiles.alphacoders.com/107/thumb-107066.jpg"
   },
   ]
-  const [name, setName] = useState("");
-  const [posture, setPosture] = useState(" ");
-  const [rate, setRate] = useState(" ");
-  const [summary, setSummary] = useState(" ");
-  const [movieList, setMovieList] = useState(intialmovie);
-  const addmovie = () => {
-    console.log("adding", name, posture, rate, summary);
-    const newmovie = {
-      movieName: name,
-      rating: rate,
-      description: summary,
-      poster: posture
-    };
-    setMovieList([...intialmovie, newmovie]);
-  }
+  // const [name, setName] = useState("");
+  // const [posture, setPosture] = useState(" ");
+  // const [rate, setRate] = useState(" ");
+  // const [summary, setSummary] = useState(" ");
+  // const [movieList, setMovieList] = useState(intialmovie);
+  // const addmovie = () => {
+  //   console.log("adding", name, posture, rate, summary);
+  //   const newmovie = {
+  //     movieName: name,
+  //     rating: rate,
+  //     description: summary,
+  //     poster: posture
+  //   };
+  //   setMovieList([...intialmovie, newmovie]);
+  // }
   return (
 
     <div className="App" >
       <div>
         <input
 
-          value={name}
-          onChange={(event) => setName(event.target.value)}
+          // value={name}
+          // onChange={(event) => setName(event.target.value)}
           placeholder="movie name"
         />
 
         <input
-          value={posture}
-          onChange={(event) => setPosture(event.target.value)}
+          // value={posture}
+          // onChange={(event) => setPosture(event.target.value)}
           placeholder="poster link" />
 
         <input
-          value={rate}
-          onChange={(event) => setRate(event.target.value)}
+          // value={rate}
+          // onChange={(event) => setRate(event.target.value)}
           placeholder="rating" />
 
         <input
-          value={summary}
-          onChange={(event) => setSummary(event.target.value)}
+          // value={summary}
+          // onChange={(event) => setSummary(event.target.value)}
           placeholder="Movie summary" />
         <input />
-
-        <button onClick={addmovie}>ADD</button>
+        {/* onClick={addmovie} */}
+        <button >ADD</button>
       </div>
-      <MovieList movies={movieList} />
+      <MovieList movies={intialmovie} />
       {/* <AddColor /> */}
 
     </div>
