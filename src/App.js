@@ -1,6 +1,6 @@
 // import from './logo.svg';
 // import { useState } from 'react/cjs/react.development';
-// import { useState } from 'react/cjs/react.development';
+import { useState } from 'react/cjs/react.development';
 import './App.css';
 import { MovieList } from './MovieList';
 
@@ -42,25 +42,25 @@ export default function App() {
     poster: "https://picfiles.alphacoders.com/107/thumb-107066.jpg"
   },
   ]
-  // const [name, setName] = useState("");
-  // const [posture, setPosture] = useState(" ");
-  // const [rate, setRate] = useState(" ");
-  // const [summary, setSummary] = useState(" ");
-  // const [movieList, setMovieList] = useState(intialmovie);
-  // const addmovie = () => {
-  //   console.log("adding", name, posture, rate, summary);
-  //   const newmovie = {
-  //     movieName: name,
-  //     rating: rate,
-  //     description: summary,
-  //     poster: posture
-  //   };
-  //   setMovieList([...intialmovie, newmovie]);
-  // }
+  const [name, setName] = useState("");
+  const [posture, setPosture] = useState(" ");
+  const [rate, setRate] = useState(" ");
+  const [summary, setSummary] = useState(" ");
+  const [movieList, setMovieList] = useState(intialmovie);
+  const addmovie = () => {
+    console.log("adding", name, posture, rate, summary);
+    const newmovie = {
+      movieName: name,
+      rating: rate,
+      description: summary,
+      poster: posture
+    };
+    setMovieList([...intialmovie, newmovie]);
+  }
   return (
 
     <div className="App" >
-      {/* <div>
+      <div>
         <input
 
           value={name}
@@ -85,8 +85,8 @@ export default function App() {
         <input />
 
         <button onClick={addmovie}>ADD</button>
-      </div> */}
-      <MovieList movies={intialmovie} />
+      </div>
+      <MovieList movies={movieList} />
       {/* <AddColor /> */}
 
     </div>
