@@ -1,71 +1,97 @@
 // import from './logo.svg';
 import { useState } from 'react';
+import { useParams } from 'react-router';
 
 import './App.css';
 import { MovieList } from './MovieList';
-import { Link, Route } from "react-router-dom"
+import { Link, Route, Switch, Redirect } from "react-router-dom"
 
 export default function App() {
   const intialmovie = [{
-    movieName: "Doctor",
+    name: "Doctor",
     rating: "8.5",
     description: "Doctor is a 2021 Indian Tamil-language action-comedy thriller film directed by Nelson Dilipkumar. The film stars Sivakarthikeyan who also produced it under his banner Sivakarthikeyan Productions, whereas KJR Studios served as the co-producer and distributor.",
-    poster: "https://i2.wp.com/www.socialnews.xyz/wp-content/uploads/2020/02/17/SivaKarthikeyan-s-Doctor-Movie-First-Look-HD-Posters-.jpg?quality=90&zoom=1&ssl=1"
+    poster: "https://i2.wp.com/www.socialnews.xyz/wp-content/uploads/2020/02/17/SivaKarthikeyan-s-Doctor-Movie-First-Look-HD-Posters-.jpg?quality=90&zoom=1&ssl=1",
+    trailer: "https://www.youtube.com/embed/oQiH_Iw0kDs"
   },
   {
-    movieName: "Tangled",
+    name: "Tangled",
     rating: "7.7",
     description: "The film is telling the story of the long-lost princess Rapunzel, who yearns to leave the confines of her secluded tower for an adventure. Against her foster mother's wishes, she accepts the aid of a handsome intruder, Flynn Rider, to take her out into the world which she has never seen.",
-    poster: "https://i.pinimg.com/originals/4a/c1/60/4ac1603157230f9a3622e388bf997b34.jpg"
+    poster: "https://i.pinimg.com/originals/4a/c1/60/4ac1603157230f9a3622e388bf997b34.jpg",
+    trailer: "https://www.youtube.com/embed/JYKpIr1lSG0"
   },
   {
-    movieName: "Fast and Furious 6",
+    name: "Fast and Furious 6",
     rating: "7",
     description: "In the film, Dominic Toretto, Brian O'Conner, and the team are offered amnesty for their past crimes in exchange for apprehending a mercenary organization, one member of which is Toretto's presumed deceased lover and wife, Letty Ortiz.",
-    poster: "https://d9nvuahg4xykp.cloudfront.net/4508989947247677680/185521559806925170.jpg"
+    poster: "https://d9nvuahg4xykp.cloudfront.net/4508989947247677680/185521559806925170.jpg",
+    trailer: "https://www.youtube.com/embed/RMmLTmjXKH8"
   },
   {
-    movieName: "Master",
+    name: "Master",
     rating: "7.8",
     description: "Master is a 2021 Indian Tamil-language action thriller film written and directed by Lokesh Kanagaraj. ... The film revolves around an alcoholic professor, J. D. (Vijay), who takes a three-month teaching job in a juvenile home, unbeknownst to him.",
-    poster: "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/Master_2.jpeg?8rcC0rlw0oakojvuh12Y8RNG04grcC4u&size=1200:675"
+    poster: "https://akm-img-a-in.tosshub.com/indiatoday/images/story/202001/Master_2.jpeg?8rcC0rlw0oakojvuh12Y8RNG04grcC4u&size=1200:675",
+    trailer: "https://www.youtube.com/embed/wNWKwjWjWcY "
   },
   {
-    movieName: "Ice Age",
+    name: "Ice Age",
     rating: "7.5",
     description: "On Earth 20,000 years ago, everything was covered in ice. A group of friends, Manny, a mammoth, Diego, a saber tooth tiger, and Sid, a sloth encounter an Eskimo human baby. They must try to return the baby back to his tribe before a group of saber tooth tigers find him and eat him.",
-    poster: "https://i.pinimg.com/originals/1a/94/79/1a947934e608f510eb5b7160074793f1.jpg"
+    poster: "https://i.pinimg.com/originals/1a/94/79/1a947934e608f510eb5b7160074793f1.jpg",
+    trailer: "https://www.youtube.com/embed/i4noiCRJRoE"
   },
   {
-    movieName: "Boss Baby",
+    name: "Boss Baby",
     rating: "6.3",
     description: "The first installment in The Boss Baby franchise, the plot follows a boy helping his baby brother who is a secret agent in the war for adults' love between babies and puppies. The Boss Baby premiered at the Miami International Film Festival on March 12, 2017, and was released in the United States on March 31.",
-    poster: "https://picfiles.alphacoders.com/107/thumb-107066.jpg"
+    poster: "https://picfiles.alphacoders.com/107/thumb-107066.jpg",
+    trailer: "https://www.youtube.com/embed/k397HRbTtWI"
   },
   ]
   const [movieList, setMovieList] = useState(intialmovie);
   return (
 
     <div className="App" >
-      <ul>
-        <li><Link to="/AddForm">Add Movie</Link></li>
-        <li> <Link to="/MovieList">Movie List</Link></li>
-        <li><Link to="/colorBox">Color Box</Link></li>
-      </ul>
+      <nav>
+        <ul>
+          <li><Link exact to="/">Home</Link></li>
+          <li><Link to="/AddForm">Add Movie</Link></li>
+          <li> <Link to="/MovieList">Movie List</Link></li>
+          <li><Link to="/colorBox">Color Box</Link></li>
+        </ul>
+      </nav>
 
 
-      <switch>
+      <Switch>
+        <Route exact path="/">
+          <Welcome />
+
+        </Route>
         <Route path="/AddForm">
+
           <AddForm movies={movieList} setMovieList={setMovieList} />
-          <MovieList movies={movieList} />
+        </Route>
+        <Route path="/flim">
+          <Redirect to="/MovieList" />
+
+        </Route>
+        <Route path="/MovieList/:id">
+
+          <MovieDetails MovieList={movieList} />
         </Route>
         <Route path="/MovieList">
           <MovieList movies={movieList} />
         </Route>
+
         <Route path="/colorBox">
           <AddColor />
         </Route>
-      </switch>
+        <Route path="**">
+          <NotFound />
+        </Route>
+      </Switch>
 
     </div>
     //map converting array into object
@@ -73,24 +99,61 @@ export default function App() {
 
 }
 
-function AddForm({ movieList }, { setMovieList }) {
+function MovieDetails({ MovieList }) {
+  const { id } = useParams();
+  const movie = MovieList[id];
+
+  console.log(movie);
+  return (
+    <div className="movies">
+      <iframe width="727" height="409" src={movie.trailer} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+      <h1 className="movie-name">{movie.name}</h1>
+
+
+      <p>Rating:<span>{movie.rating}</span> </p>
+
+      <p>Summary:</p><textarea>{movie.description}</textarea>
+
+
+    </div >
+  )
+}
+function Welcome() {
+  return (
+    <div>
+      <h1>welcome ☺</h1>
+    </div>
+  )
+}
+
+function NotFound() {
+  return (
+    <div>
+      <img src="https://freefrontend.com/assets/img/html-funny-404-pages/CodePen-404-Page.gif" alt="Not Found"></img>
+    </div>
+  )
+}
+
+function AddForm({ movies, setMovieList }) {
   const [name, setName] = useState("");
-  const [posture, setPosture] = useState(" ");
-  const [rate, setRate] = useState(" ");
-  const [summary, setSummary] = useState(" ");
+  const [poster, setPoster] = useState(" ");
+  const [rating, setRating] = useState(" ");
+  const [description, setDescription] = useState(" ");
 
   const addmovie = () => {
-    console.log("adding", name, posture, rate, summary);
+    console.log("adding", name + " " + poster + " " + rating + " " + description);
     const newmovie = {
-      movieName: name,
-      rating: rate,
-      description: summary,
-      poster: posture
+      name,
+      poster,
+      rating,
+      description
+
     };
-    setMovieList([...movieList, newmovie]);
+    setMovieList([...movies, newmovie]);
   }
   return (
-    <div className="form1">
+    <div>
       <input
 
         // value={name}
@@ -99,17 +162,17 @@ function AddForm({ movieList }, { setMovieList }) {
 
       <input
         // value={posture}
-        onChange={(event) => setPosture(event.target.value)}
+        onChange={(event) => setPoster(event.target.value)}
         placeholder="poster link" /><br />
 
       <input
         // value={rate}
-        onChange={(event) => setRate(event.target.value)}
+        onChange={(event) => setRating(event.target.value)}
         placeholder="rating" /><br />
 
       <input
 
-        onChange={(event) => setSummary(event.target.value)}
+        onChange={(event) => setDescription(event.target.value)}
         placeholder="Movie summary" /><br />
 
 

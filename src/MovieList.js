@@ -9,13 +9,16 @@ export function MovieList({ movies }) {
             {/* <div><AddMovie />
      </div> */}
             <div className="Movie">
-                {movies.map(({ movieName, poster, rating, description }) => <Msg
-                    names={movieName}
+                {movies.map(({ name, poster, rating, description }, index) => <Msg
+                    names={name}
                     image={poster}
                     rate={rating}
-                    des={description} />)}
+                    des={description}
+                    id={index} />)}
+
             </div>
         </section>);
+
 }
 
 // function AddMovie(){
