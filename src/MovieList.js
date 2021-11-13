@@ -1,8 +1,10 @@
 
 
 import { Msg } from "./Msg";
+import { useHistory } from "react-router-dom"
 
-export function MovieList({ movies }) {
+export function MovieList({ movies, setMovieList }) {
+    const history = useHistory();
 
     return (
         <section>
@@ -14,9 +16,23 @@ export function MovieList({ movies }) {
                     image={poster}
                     rate={rating}
                     des={description}
-                    id={index} />)}
+                    id={index}
+                    deletebutton={<button onClick={() => {
+                        console.log(index);
+                        const deleteid = index;
+                        const remainingMovies = movies.filter((mv, idx) => idx !== deleteid);
+                        console.log(remainingMovies);
+                        setMovieList(remainingMovies);
+                    }}><i class="fas fa-trash"></i></button>}
+                    editbutton={<button onClick={() => history.push("/MovieList/edit/" + index)}><i class="fas fa-pen"></i></button>} />
+                )
+                }
+
+
 
             </div>
+
+
         </section>);
 
 }

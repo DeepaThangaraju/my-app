@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { Counter } from './Counter.js';
 
 
-export function Msg({ names, image, rate, des, id }) {
+export function Msg({ names, image, rate, des, deletebutton, editbutton, id }) {
     //unwrapping the name and pc from object
     const [show, setShow] = useState(true);
     const history = useHistory();
@@ -20,11 +20,16 @@ export function Msg({ names, image, rate, des, id }) {
                     console.log(id);
                     history.push("/movieList/" + id);
                 }}>
-                    <i class="fas fa-info-circle"></i></button></span>
+                    <i class="fas fa-info-circle"></i></button>
+
+
+                </span>
                 <p>Rating:<span style={sty}>{rate}</span> </p>
                 <button onClick={() => { setShow(!show); }}> <i class="fas fa-chevron-circle-down"></i></button>
                 <p style={disdes}>Summary:</p><textarea style={disdes}>{des}</textarea>
-                <Counter />
+                <div className="btns">
+                    <Counter />{deletebutton}{editbutton}
+                </div>
 
             </div >
         </section >

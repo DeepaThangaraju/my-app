@@ -1,10 +1,13 @@
 // import from './logo.svg';
 import { useState } from 'react';
-import { useParams } from 'react-router';
 
 import './App.css';
 import { MovieList } from './MovieList';
 import { Link, Route, Switch, Redirect } from "react-router-dom"
+import { MovieDetails } from './MovieDetails';
+import { AddForm, EditForm } from './AddForm';
+import { AddColor } from './AddColor';
+import { Welcome } from './Welcome';
 
 export default function App() {
   const intialmovie = [{
@@ -60,6 +63,7 @@ export default function App() {
           <li><Link to="/AddForm">Add Movie</Link></li>
           <li> <Link to="/MovieList">Movie List</Link></li>
           <li><Link to="/colorBox">Color Box</Link></li>
+          <li><Link to="/tictactoe">TicTacToe</Link></li>
         </ul>
       </nav>
 
@@ -69,6 +73,9 @@ export default function App() {
           <Welcome />
 
         </Route>
+        <Route path="/tictactoe">
+          <Tictactoe />
+        </Route>
         <Route path="/AddForm">
 
           <AddForm movies={movieList} setMovieList={setMovieList} />
@@ -77,12 +84,16 @@ export default function App() {
           <Redirect to="/MovieList" />
 
         </Route>
+
+        <Route path="/MovieList/edit/:id">
+          <EditForm movies={movieList} setMovieList={setMovieList} />
+        </Route>
         <Route path="/MovieList/:id">
 
           <MovieDetails MovieList={movieList} />
         </Route>
         <Route path="/MovieList">
-          <MovieList movies={movieList} />
+          <MovieList movies={movieList} setMovieList={setMovieList} />
         </Route>
 
         <Route path="/colorBox">
@@ -99,34 +110,6 @@ export default function App() {
 
 }
 
-function MovieDetails({ MovieList }) {
-  const { id } = useParams();
-  const movie = MovieList[id];
-
-  console.log(movie);
-  return (
-    <div className="movies">
-      <iframe width="727" height="409" src={movie.trailer} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-      <h1 className="movie-name">{movie.name}</h1>
-
-
-      <p>Rating:<span>{movie.rating}</span> </p>
-
-      <p>Summary:</p><textarea>{movie.description}</textarea>
-
-
-    </div >
-  )
-}
-function Welcome() {
-  return (
-    <div>
-      <h1>welcome ☺</h1>
-    </div>
-  )
-}
-
 function NotFound() {
   return (
     <div>
@@ -135,77 +118,33 @@ function NotFound() {
   )
 }
 
-function AddForm({ movies, setMovieList }) {
-  const [name, setName] = useState("");
-  const [poster, setPoster] = useState(" ");
-  const [rating, setRating] = useState(" ");
-  const [description, setDescription] = useState(" ");
-
-  const addmovie = () => {
-    console.log("adding", name + " " + poster + " " + rating + " " + description);
-    const newmovie = {
-      name,
-      poster,
-      rating,
-      description
-
-    };
-    setMovieList([...movies, newmovie]);
+function Tictactoe() {
+  const [board, setBoard] = useState([null, null, null, null, null, null, null, null, null]);
+  // const decideWinner = () => {
+  const [isXturn, setIsXturn] = useState(true);
+  const handleclick = (index) => {
+    const boardcopy = [...board];
+    boardcopy[index] = isXturn ? "x" : "o";
+    setBoard(boardcopy);
+    setIsXturn(!isXturn);
   }
   return (
-    <div>
-      <input
+    <div className="board">
+      {board.map((val, index) => (<Box val={val} onplayerClick={() => handleclick(index)} />))}
 
-        // value={name}
-        onChange={(event) => setName(event.target.value)}
-        placeholder="movie name" /><br />
-
-      <input
-        // value={posture}
-        onChange={(event) => setPoster(event.target.value)}
-        placeholder="poster link" /><br />
-
-      <input
-        // value={rate}
-        onChange={(event) => setRating(event.target.value)}
-        placeholder="rating" /><br />
-
-      <input
-
-        onChange={(event) => setDescription(event.target.value)}
-        placeholder="Movie summary" /><br />
-
-
-      <button onClick={addmovie}>ADD</button>
-    </div>);
-}
-
-
-
-function AddColor() {
-  const [color, setColor] = useState("red");
-  const sty = { backgroundColor: color }
-  const [colors, setColors] = useState(["red", "crimson", "pink"]);
-  return (
-    <div>
-      <input
-        value={color}
-        onChange={(event) => setColor(event.target.value)}
-        style={sty}
-        placeholder="enter the color" />
-      {colors.map((clr, index) => (<Colorbox key={index} color={clr} />))}
-
-      <button onClick={() => setColors([...colors, color])}>Add colors</button>
     </div>
   )
 }
 
-function Colorbox({ color }) {
-  const styles = { backgroundColor: color, height: "4rem", width: "10rem", margin: "1rem" };
+
+function Box({ onplayerClick, val }) {
+
+  // const [val, setVal] = useState(null)
+  const styls = { color: val === "x" ? "green" : "red" };
   return (
-
-    <div style={styles}>
-
+    <div style={styls}
+      onClick={onplayerClick} className="gamebox">
+      {val}
     </div>
   )
 }

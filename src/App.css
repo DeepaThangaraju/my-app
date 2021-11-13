@@ -50,6 +50,25 @@ nav li{
 p{
   text-align: left;
 }
+.adding{
+  display: block;
+  justify-content: center;
+  align-items: center;
+ 
+}
+.btns{
+display: flex;
+gap:1rem;
+}
+.adding button{
+  margin:1rem 0rem 0rem 20rem;
+}
+input{
+  width:50%;
+  height:2rem;
+  margin-top: 1rem;
+  
+}
 .likes-dislikes{
   height:2rem;
   width:4rem;
@@ -86,6 +105,24 @@ p{
   width:2rem;
   height:2rem;
   margin:1rem 0rem 0rem 2rem;
+}
+.gamebox{
+  background-color: black;
+  color:white;
+  width:8rem;
+  height: 8rem;
+  border:1px solid white;
+  font-size: 8rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.board{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  width:min-content;
 }
 
 @media (min-width:660px){
