@@ -122,9 +122,10 @@ function NotFound() {
 
 function Tictactoe() {
   const [board, setBoard] = useState([null, null, null, null, null, null, null, null, null]);
-
+  const [turn, setTurn] = useState("X");
   const { width, height } = useWindowSize()
   const [isXturn, setIsXturn] = useState(true);
+  const sty = { width: "100%", marginTop: "1rem" }
 
   const decideWinner = (board) => {
     const lines = [[1, 2, 3],
@@ -163,11 +164,17 @@ function Tictactoe() {
       <div className="board">
         {board.map((val, index) => (<Box val={val} onplayerClick={() => handleclick(index)} />))}
         {winner ? <h2>winner is:{winner}</h2> : ""} <br />
+
         {isXturn ? <h2>X Turn</h2> : <h2>O Turn</h2>}<br />
-        <button onClick={Restart}>Restart</button>
+        <input
+          style={sty}
+          value={turn}
+          onChange={(event) => setTurn(event.target.value)}
+          placeholder="Start with" /><br />
+        <button style={sty} onClick={Restart}>Restart</button>
       </div>
 
-    </div>
+    </div >
   )
 }
 
