@@ -163,7 +163,7 @@ function Tictactoe() {
 
       <div className="board">
         {board.map((val, index) => (<Box val={val} onplayerClick={() => handleclick(index)} />))}
-        {winner ? <h2>winner is:{winner}</h2> : ""} <br />
+
 
         {isXturn ? <h2>X Turn</h2> : <h2>O Turn</h2>}<br />
         <input
@@ -171,7 +171,8 @@ function Tictactoe() {
           value={turn}
           onChange={(event) => setTurn(event.target.value)}
           placeholder="Start with" /><br />
-        <button style={sty} onClick={Restart}>Restart</button>
+        <button style={sty} onClick={Restart}>Restart</button><br />
+        {winner ? <h2>winner is:{winner}</h2> : ""} <br />
       </div>
 
     </div >
