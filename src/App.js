@@ -8,6 +8,8 @@ import { MovieDetails } from './MovieDetails';
 import { AddForm, EditForm } from './AddForm';
 import { AddColor } from './AddColor';
 import { Welcome } from './Welcome';
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
 
 export default function App() {
   const intialmovie = [{
@@ -120,18 +122,60 @@ function NotFound() {
 
 function Tictactoe() {
   const [board, setBoard] = useState([null, null, null, null, null, null, null, null, null]);
-  // const decideWinner = () => {
-  const [isXturn, setIsXturn] = useState(true);
-  const handleclick = (index) => {
-    const boardcopy = [...board];
-    boardcopy[index] = isXturn ? "x" : "o";
-    setBoard(boardcopy);
-    setIsXturn(!isXturn);
-  }
-  return (
-    <div className="board">
-      {board.map((val, index) => (<Box val={val} onplayerClick={() => handleclick(index)} />))}
 
+  const { width, height } = useWindowSize()
+  const [isXturn, setIsXturn] = useState(true);
+
+  const decideWinner = (board) => {
+    const lines = [[1, 2, 3],
+    [1, 4, 7],
+    [3, 4, 5],
+    [6, 7, 8],
+    [2, 5, 8],
+    [0, 3, 6],
+    [0, 4, 8],
+    [2, 4, 6]];
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (board[a] === board[b] && board[b] === board[c] && board[a] !== null) {
+        console.log("winnner is", board[a]);
+        return board[a];
+      }
+    }
+    return null;
+  };
+  const winner = decideWinner(board);
+  const handleclick = (index) => {
+    if (winner === null && (!board[index])) {
+      const boardcopy = [...board];
+      boardcopy[index] = isXturn ? "X" : "O";
+      setBoard(boardcopy);
+      setIsXturn(!isXturn);
+    }
+  };
+  return (
+    <div className="game">
+      {winner ? <Confetti
+        width={width}
+        height={height}
+      /> : " "}
+
+      <div className="board">
+        {board.map((val, index) => (<Box val={val} onplayerClick={() => handleclick(index)} />))}
+        {winner ? <h2>winner is:{winner}</h2> : ""} <br />
+        {isXturn ? <h2>X turn</h2> : <h2>O turn</h2>}<br />
+        <button onClick={Restart}>Restart</button>
+      </div>
+
+    </div>
+  )
+}
+
+function Restart() {
+
+  return (
+    <div>
+      <Tictactoe />
     </div>
   )
 }
@@ -140,7 +184,7 @@ function Tictactoe() {
 function Box({ onplayerClick, val }) {
 
   // const [val, setVal] = useState(null)
-  const styls = { color: val === "x" ? "green" : "red" };
+  const styls = { color: val === "X" ? "green" : "red" };
   return (
     <div style={styls}
       onClick={onplayerClick} className="gamebox">

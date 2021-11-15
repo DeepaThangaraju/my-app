@@ -112,8 +112,11 @@ input{
   width:8rem;
   height: 8rem;
   border:1px solid white;
-  font-size: 8rem;
+  font-size: 6rem;
   cursor: pointer;
+  
+}
+.game{
   display: flex;
   justify-content: center;
   align-items: center;

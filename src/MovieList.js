@@ -24,7 +24,9 @@ export function MovieList({ movies, setMovieList }) {
                         console.log(remainingMovies);
                         setMovieList(remainingMovies);
                     }}><i class="fas fa-trash"></i></button>}
-                    editbutton={<button onClick={() => history.push("/MovieList/edit/" + index)}><i class="fas fa-pen"></i></button>} />
+                    editbutton={<button onClick={() => history.push("/MovieList/edit/" + index)}><i class="fas fa-pen"></i></button>}
+                />
+
                 )
                 }
 
