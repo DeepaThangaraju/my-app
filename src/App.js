@@ -134,14 +134,14 @@ function Tictactoe() {
   const sty = { width: "100%", marginTop: "1rem" }
 
   const decideWinner = (board) => {
-    const lines = [0, [1, 2],
-      [1, 4, 7],
-      [3, 4, 5],
-      [6, 7, 8],
-      [2, 5, 8],
-      [0, 3, 6],
-      [0, 4, 8],
-      [2, 4, 6]];
+    const lines = [[0, 1, 2],
+    [0, 3, 6],
+    [3, 4, 5],
+    [6, 7, 8],
+    [1, 4, 7],
+    [2, 4, 6],
+    [0, 4, 8],
+    [2, 4, 8]];
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (board[a] === board[b] && board[b] === board[c] && board[a] !== null) {
