@@ -1,28 +1,49 @@
 
 
 import { Msg } from "./Msg";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-export function MovieList({ movies, setMovieList }) {
+export function MovieList() {
+    const [movieList, setMovieList] = useState([]);
+    const getmovie = () => {
+        fetch("https://6166c4e813aa1d00170a6717.mockapi.io/movies")
+            .then((data) => data.json())
+            .then((mov) => setMovieList(mov));
+    }
+    useEffect(getmovie, []);
     const history = useHistory();
+    console.log(movieList);
+    const deletemovie = (id) => {
+        fetch(`https://6166c4e813aa1d00170a6717.mockapi.io/movies/${id}`,
+            {
+                method: "DELETE",
+            })
+            .then(() => getmovie());
+
+
+    }
 
     return (
         <section>
             {/* <div><AddMovie />
      </div> */}
             <div className="Movie">
-                {movies.map(({ name, poster, rating, description }, index) => <Msg
-                    names={name}
+                {movieList.map(({ name, rating, description, poster, id }, index) => <Msg
+                    name={name}
                     image={poster}
                     rate={rating}
                     des={description}
-                    id={index}
+                    id={id}
                     deletebutton={<button onClick={() => {
-                        console.log(index);
-                        const deleteid = index;
-                        const remainingMovies = movies.filter((mv, idx) => idx !== deleteid);
-                        console.log(remainingMovies);
-                        setMovieList(remainingMovies);
+                        // console.log(index);
+                        // const deleteid = index;
+                        // const remainingMovies = movieList.filter((mv, idx) => idx !== deleteid);
+                        // console.log(remainingMovies);
+                        // setMovieList(remainingMovies);
+                        deletemovie(id);
+
+
                     }}><i class="fas fa-trash"></i></button>}
                     editbutton={<button onClick={() => history.push("/MovieList/edit/" + index)}><i class="fas fa-pen"></i></button>}
                 />

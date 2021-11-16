@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useParams } from 'react-router';
+import { useHistory } from 'react-router';
 
-export function AddForm({ movies, setMovieList }) {
+export function AddForm() {
     const [name, setName] = useState("");
     const [poster, setPoster] = useState(" ");
     const [rating, setRating] = useState(" ");
     const [description, setDescription] = useState(" ");
     const [trailer, setTrailer] = useState(" ");
+    const history = useHistory();
 
     const addmovie = () => {
         console.log("adding", name + " " + poster + " " + rating + " " + description);
@@ -17,7 +19,16 @@ export function AddForm({ movies, setMovieList }) {
             description,
             trailer
         };
-        setMovieList([...movies, newmovie]);
+        // setMovieList([...movies, newmovie]);
+        fetch("https://6166c4e813aa1d00170a6717.mockapi.io/movies",
+            {
+                method: "POST",
+                body: JSON.stringify(newmovie),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(() => history.push("/MovieList"));
     };
     return (
         <div className="adding">

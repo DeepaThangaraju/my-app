@@ -3,8 +3,9 @@ import { useHistory } from 'react-router';
 import { Counter } from './Counter.js';
 
 
-export function Msg({ names, image, rate, des, deletebutton, editbutton, id }) {
+export function Msg({ name, image, rate, des, deletebutton, editbutton, id }) {
     //unwrapping the name and pc from object
+    console.log(name, image, rate, des);
     const [show, setShow] = useState(true);
     const history = useHistory();
     const sty = { color: rate > 8 ? "green" : "red", fontWeight: "bold" };
@@ -15,8 +16,8 @@ export function Msg({ names, image, rate, des, deletebutton, editbutton, id }) {
         < section >
 
             <div className="movies">
-                <img className="movie-pic" src={image} alt={names} />
-                <span className="info"><h1 className="movie-name">{names}</h1> <button onClick={() => {
+                <img className="movie-pic" src={image} alt={name} />
+                <span className="info"><h1 className="movie-name">{name}</h1> <button onClick={() => {
                     console.log(id);
                     history.push("/movieList/" + id);
                 }}>

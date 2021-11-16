@@ -1,8 +1,19 @@
-import { useParams } from 'react-router';
 
-export function MovieDetails({ MovieList }) {
+import { useParams } from 'react-router';
+import { useEffect, useState } from 'react';
+
+
+export function MovieDetails() {
     const { id } = useParams();
-    const movie = MovieList[id];
+
+    const [movieList, setMovieList] = useState({});
+    useEffect(() => {
+        fetch(`https://6166c4e813aa1d00170a6717.mockapi.io/movies/${id}`,
+            { method: "GET" })
+            .then((data) => data.json())
+            .then((mov) => setMovieList(mov));
+    }, []);
+    const movie = movieList;
 
     console.log(movie);
     return (
@@ -14,7 +25,7 @@ export function MovieDetails({ MovieList }) {
 
             <p>Rating:<span>{movie.rating}</span> </p>
 
-            <p>Summary:</p><textarea>{movie.description}</textarea>
+            <p>Summary:{movie.description}</p>
 
 
         </div>
