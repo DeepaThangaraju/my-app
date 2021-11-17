@@ -12,7 +12,7 @@ export function MovieDetails() {
             { method: "GET" })
             .then((data) => data.json())
             .then((mov) => setMovieList(mov));
-    }, []);
+    }, [id]);
     const movie = movieList;
 
     console.log(movie);

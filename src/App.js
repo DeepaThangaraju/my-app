@@ -2,14 +2,15 @@
 import { useState } from 'react';
 
 import './App.css';
-import { MovieList } from './MovieList';
+import { MovieList } from './movies/MovieList';
 import { Link, Route, Switch, Redirect } from "react-router-dom"
-import { MovieDetails } from './MovieDetails';
-import { AddForm, EditForm } from './AddForm';
-import { AddColor } from './AddColor';
+import { MovieDetails } from './movies/MovieDetails';
+import { AddForm, EditForm } from './movies/AddForm';
+import { AddColor } from './colorbox/AddColor';
 import { Welcome } from './Welcome';
 import useWindowSize from 'react-use/lib/useWindowSize'
 import Confetti from 'react-confetti';
+import { BasicForm } from './BasicForm';
 
 
 export default function App() {
@@ -74,6 +75,7 @@ export default function App() {
           <li> <Link to="/MovieList">Movie List</Link></li>
           <li><Link to="/colorBox">Color Box</Link></li>
           <li><Link to="/tictactoe">TicTacToe</Link></li>
+          <li><Link to="/form">Form</Link></li>
         </ul>
       </nav>
 
@@ -104,6 +106,9 @@ export default function App() {
         </Route>
         <Route path="/MovieList">
           <MovieList />
+        </Route>
+        <Route path="/form">
+          <BasicForm />
         </Route>
 
         <Route path="/colorBox">
@@ -208,3 +213,5 @@ function Box({ onplayerClick, val }) {
     </div>
   )
 }
+
+

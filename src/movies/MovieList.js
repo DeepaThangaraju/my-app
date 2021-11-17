@@ -45,7 +45,7 @@ export function MovieList() {
 
 
                     }}><i class="fas fa-trash"></i></button>}
-                    editbutton={<button onClick={() => history.push("/MovieList/edit/" + index)}><i class="fas fa-pen"></i></button>}
+                    editbutton={<button onClick={() => history.push(`/MovieList/edit/${id}`)}><i class="fas fa-pen"></i></button>}
                 />
 
                 )
