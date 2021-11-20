@@ -1,25 +1,52 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useHistory } from 'react-router';
+import * as yup from 'yup';
+import { useFormik } from "formik";
 
+const formValidationSchema = yup.object({
+    name: yup.string().required("Why not fill the name?"),
+    poster: yup.string().min(4).required("why not fill the poster?"),
+    rating: yup.number().min(0).max(10).required("why not fill the rating"),
+    description: yup.string().min(28).required("why not fill the description"),
+    trailer: yup.string().required("why not fill the trailer?").min(4),
+
+})
 export function AddForm() {
-    const [name, setName] = useState("");
-    const [poster, setPoster] = useState(" ");
-    const [rating, setRating] = useState(" ");
-    const [description, setDescription] = useState(" ");
-    const [trailer, setTrailer] = useState(" ");
-    const history = useHistory();
+    // const [name, setName] = useState("");
+    // const [poster, setPoster] = useState(" ");
+    // const [rating, setRating] = useState(" ");
+    // const [description, setDescription] = useState(" ");
+    // const [trailer, setTrailer] = useState(" ");
 
-    const addmovie = () => {
-        console.log("adding", name + " " + poster + " " + rating + " " + description);
-        const newmovie = {
-            name,
-            poster,
-            rating,
-            description,
-            trailer
-        };
-        // setMovieList([...movies, newmovie]);
+    const history = useHistory();
+    const { handleSubmit, values, handleChange, handleBlur, errors, touched } = useFormik({
+        initialValues: {
+            name: "",
+            poster: "",
+            rating: "",
+            description: "",
+            trailer: ""
+        },
+        // validate: validateForm,
+        validationSchema: formValidationSchema,
+        onSubmit: (newmovie) => {
+            console.log("onsubmit", newmovie);
+            addmovie(newmovie)
+        },
+    });
+
+    const addmovie = (newmovie) => {
+        // console.log("adding", name + " " + poster + " " + rating + " " + description);
+        // const newmovie = {
+        //     name,
+        //     poster,
+        //     rating,
+        //     description,
+        //     trailer
+        // };
+        // // setMovieList([...movies, newmovie]);
+
         fetch("https://6166c4e813aa1d00170a6717.mockapi.io/movies",
             {
                 method: "POST",
@@ -30,37 +57,65 @@ export function AddForm() {
             })
             .then(() => history.push("/MovieList"));
     };
+
     return (
-        <div className="adding">
+        <form onSubmit={handleSubmit} className="adding">
             <input
-                // value={name}
-
-                onChange={(event) => setName(event.target.value)}
-                placeholder="movie name" /><br />
-
-            <input
-                // value={posture}
-                onChange={(event) => setPoster(event.target.value)}
-                placeholder="poster link" /><br />
+                id="name"
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                placeholder="movie name" />
+            {errors.name && touched.name && errors.name}<br />
 
             <input
-                // value={rate}
-                onChange={(event) => setRating(event.target.value)}
-                placeholder="rating" /><br />
+                id="poster"
+                name="poster"
+                value={values.posterl}
+                onChange={handleChange}
+                onBlur={handleBlur}
+
+                placeholder="poster link" />
+            {errors.poster && touched.poster && errors.poster}<br />
+
 
             <input
+                id="rating"
+                name="rating"
+                value={values.rating}
+                onChange={handleChange}
+                onBlur={handleBlur}
 
-                onChange={(event) => setDescription(event.target.value)}
-                placeholder="Movie summary" /><br />
+                placeholder="rating" />
+            {errors.rating && touched.rating && errors.rating}<br />
+
 
             <input
+                id="description"
+                name="description"
+                value={values.description}
+                onChange={handleChange}
+                onBlur={handleBlur}
 
-                onChange={(event) => setTrailer(event.target.value)}
-                placeholder="Trailer" /><br />
+                placeholder="Movie summary" />
+            {errors.description && touched.description && errors.description}<br />
 
 
-            <button onClick={addmovie}>ADD</button>
-        </div>);
+            <input
+                id="trailer"
+                name="trailer"
+                value={values.trailer}
+                onChange={handleChange}
+                onBlur={handleBlur}
+
+                placeholder="Trailer" />
+            {errors.trailer && touched.trailer && errors.trailer}<br />
+
+
+
+            <button type="submit" >ADD</button>
+        </form>);
 }
 export function EditForm() {
     const { id } = useParams();
