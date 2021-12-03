@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import { useHistory } from 'react-router';
 import * as yup from 'yup';
 import { useFormik } from "formik";
+import { API_URL } from "./global_constant";
 
 const formValidationSchema = yup.object({
     name: yup.string().required("Why not fill the name?"),
@@ -47,7 +48,7 @@ export function AddForm() {
         // };
         // // setMovieList([...movies, newmovie]);
 
-        fetch("https://6166c4e813aa1d00170a6717.mockapi.io/movies",
+        fetch(`${API_URL}/movies`,
             {
                 method: "POST",
                 body: JSON.stringify(newmovie),
@@ -123,7 +124,7 @@ export function EditForm() {
 
     const [movieList, setMovieList] = useState(null);
     useEffect(() => {
-        fetch(`https://6166c4e813aa1d00170a6717.mockapi.io/movies/${id}`,
+        fetch(`${API_URL}/movies/${id}`,
             { method: "GET" })
             .then((data) => data.json())
             .then((mov) => setMovieList(mov));
@@ -154,7 +155,7 @@ function Updatemovie({ movieList }) {
         // const copy = [...movies];
         // copy[id] = updatedmovie;
         // setMovieList(copy);
-        fetch(`https://6166c4e813aa1d00170a6717.mockapi.io/movies/${movieList.id}`,
+        fetch(`${API_URL}/movies/${movieList.id}`,
             {
                 method: "PUT",
                 body: JSON.stringify(updatedmovie),

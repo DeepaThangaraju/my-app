@@ -3,11 +3,11 @@
 import { Msg } from "./Msg";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import { API_URL } from "./global_constant";
 export function MovieList() {
     const [movieList, setMovieList] = useState([]);
     const getmovie = () => {
-        fetch("https://6166c4e813aa1d00170a6717.mockapi.io/movies")
+        fetch(`${API_URL}/movies`)
             .then((data) => data.json())
             .then((mov) => setMovieList(mov));
     }
@@ -15,7 +15,7 @@ export function MovieList() {
     const history = useHistory();
     console.log(movieList);
     const deletemovie = (id) => {
-        fetch(`https://6166c4e813aa1d00170a6717.mockapi.io/movies/${id}`,
+        fetch(`${API_URL}/movies/${id}`,
             {
                 method: "DELETE",
             })

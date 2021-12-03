@@ -1,14 +1,15 @@
 
 import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
-
+import { useHistory } from 'react-router';
+import { API_URL } from "./global_constant";
 
 export function MovieDetails() {
     const { id } = useParams();
-
+    const history = useHistory();
     const [movieList, setMovieList] = useState({});
     useEffect(() => {
-        fetch(`https://6166c4e813aa1d00170a6717.mockapi.io/movies/${id}`,
+        fetch(`${API_URL}/movies/${id}`,
             { method: "GET" })
             .then((data) => data.json())
             .then((mov) => setMovieList(mov));
@@ -26,7 +27,7 @@ export function MovieDetails() {
             <p>Rating:<span>{movie.rating}</span> </p>
 
             <p>Summary:{movie.description}</p>
-
+            <button onClick={() => history.goBack()}>BACK</button>
 
         </div>
     );
