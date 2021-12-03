@@ -29,7 +29,7 @@ export function MovieList() {
             {/* <div><AddMovie />
      </div> */}
             <div className="Movie">
-                {movieList.map(({ name, rating, description, poster, id }, index) => <Msg
+                {movieList.map(({ name, rating, description, poster, id ,_id}, index) => <Msg
                     name={name}
                     image={poster}
                     rate={rating}
@@ -41,7 +41,7 @@ export function MovieList() {
                         // const remainingMovies = movieList.filter((mv, idx) => idx !== deleteid);
                         // console.log(remainingMovies);
                         // setMovieList(remainingMovies);
-                        deletemovie(id);
+                        deletemovie(_id);
 
 
                     }}><i class="fas fa-trash"></i></button>}
