@@ -30,11 +30,12 @@ export function MovieList() {
      </div> */}
             <div className="Movie">
                 {movieList.map(({ name, rating, description, poster, id ,_id}, index) => <Msg
+                    key={_id}
                     name={name}
                     image={poster}
                     rate={rating}
                     des={description}
-                    id={id}
+                    id={_id}
                     deletebutton={<button onClick={() => {
                         // console.log(index);
                         // const deleteid = index;
@@ -45,7 +46,7 @@ export function MovieList() {
 
 
                     }}><i class="fas fa-trash"></i></button>}
-                    editbutton={<button onClick={() => history.push(`/MovieList/edit/${id}`)}><i class="fas fa-pen"></i></button>}
+                    editbutton={<button onClick={() => history.push(`/MovieList/edit/${_id}`)}><i class="fas fa-pen"></i></button>}
                 />
 
                 )

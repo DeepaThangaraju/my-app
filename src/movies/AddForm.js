@@ -155,7 +155,7 @@ function Updatemovie({ movieList }) {
         // const copy = [...movies];
         // copy[id] = updatedmovie;
         // setMovieList(copy);
-        fetch(`${API_URL}/movies/${movieList.id}`,
+        fetch(`${API_URL}/movies/${movieList._id}`,
             {
                 method: "PUT",
                 body: JSON.stringify(updatedmovie),
